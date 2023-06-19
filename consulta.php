@@ -56,7 +56,13 @@
             </div>
             <div class="back d-flex flex-column w-100">
                 <div class="secao-secondary">
-                    <button type="button" class="p-2 btn btn-success mb-3">NOVA CONSULTA</button>
+                    <input type="button" onclick="abrirJanela()" class="p-2 btn btn-success mb-3" value="NOVA CONSULTA">
+
+                    <div id="popup_consulta" class="popup">
+                        <div class="subpopup">
+                            <button class="fechar" onclick="fecharJanela()">X</button>
+                        </div>
+                    </div>
 
                     <div class="font-weight-bold">
                         FILTROS
@@ -105,6 +111,7 @@
             </div>
         </div>
     </div>
+    <script src="consulta.js"></script>
 </body>
 
 </html>
