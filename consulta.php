@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
+
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="consulta.css">
 
@@ -87,35 +87,43 @@
                                     </div>
                                     <div class="d-flex flex-wrap mb-3 padd">
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste" onclick="chamarData()">09:00 -
+                                            <button class="border btn btn-light" type="button" id="teste"
+                                                onclick="chamarData()">09:00 -
                                                 09:30</button>
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste2" onclick="chamarData2()">09:45 -
+                                            <button class="border btn btn-light" type="button" id="teste2"
+                                                onclick="chamarData2()">09:45 -
                                                 10:15</button>
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste3" onclick="chamarData3()">10:30 - 11:00</button>
+                                            <button class="border btn btn-light" type="button" id="teste3"
+                                                onclick="chamarData3()">10:30 - 11:00</button>
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste4" onclick="chamarData4()">11:15 - 11:45</button>
-                                            
+                                            <button class="border btn btn-light" type="button" id="teste4"
+                                                onclick="chamarData4()">11:15 - 11:45</button>
+
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste5" onclick="chamarData5()">13:30 - 14:00</button>
-                                            
+                                            <button class="border btn btn-light" type="button" id="teste5"
+                                                onclick="chamarData5()">13:30 - 14:00</button>
+
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste6" onclick="chamarData6()">14:15 - 14:45</button>
-                                            
+                                            <button class="border btn btn-light" type="button" id="teste6"
+                                                onclick="chamarData6()">14:15 - 14:45</button>
+
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste7" onclick="chamarData7()">15:00 - 15:30</button>
-                                            
+                                            <button class="border btn btn-light" type="button" id="teste7"
+                                                onclick="chamarData7()">15:00 - 15:30</button>
+
                                         </div>
                                         <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste8" onclick="chamarData8()">15:45 - 16:15</button>
-                                            
+                                            <button class="border btn btn-light" type="button" id="teste8"
+                                                onclick="chamarData8()">15:45 - 16:15</button>
+
                                         </div>
                                     </div>
                                     <div class="form-floating mb-3">
