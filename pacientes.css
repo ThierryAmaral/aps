@@ -2,7 +2,7 @@
     background-color: LightGray;
 }
 
-.secao-primary{
+.first-section{
     margin: 0px auto;
     max-width: 1500px;
     padding-right: 15px;
@@ -11,7 +11,7 @@
     margin-left: auto;
 }
 
-.secao-secondary{
+.second-section{
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;

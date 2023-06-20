@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="consulta.css">
+    <link rel="stylesheet" type="text/css" href="pacientes.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div class="secao-primary">
+    <div class="first-section">
         <div class="row flex-nowrap">
             <div class="bg-white col-auto">
                 <div class="bg-white">
@@ -55,30 +55,25 @@
                 </div>
             </div>
             <div class="back d-flex flex-column w-100">
-                <div class="secao-secondary">
-                    <input type="button" class="p-2 btn btn-success mb-3" value="NOVA CONSULTA">
+                <div class="second-section">
+                    <input type="button" class="p-2 btn btn-success mb-3" value="CADASTRAR PACIENTE">
 
                     <div class="font-weight-bold">
-                        FILTROS
+                        FILTRAR PACIENTE
                     </div>
                     <div class="row g-2 mb-3">
                         <div class="form-group mb-2 col-md-3">
-                            <input type="date" class="form-control">
+                            <input type="text" class="form-control" placeholder="INSIRA O NOME">
                         </div>
-                        <div class="form-group mb-2 col-md-6">
-                            <input type="text" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">FILTRAR</button>
                     </div>
 
                     <table class="table table-striped">
                         <thead>
                             <tr class="bg-info">
                                 <th scope="col">Paciente</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">Data e Hora</th>
-                                <th scope="col">Forma de Pagamento</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">CPF</th>
+                                <th scope="col">Data de Nascimento</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,21 +82,18 @@
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td>@mdo</td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
                                 <td>@fat</td>
-                                <td>@mdo</td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
                                 <td>Larry</td>
                                 <td>the Bird</td>
                                 <td>@twitter</td>
-                                <td>@mdo</td>
                             </tr>
                         </tbody>
                     </table>
@@ -109,7 +101,7 @@
             </div>
         </div>
     </div>
-    <script src="consulta.js"></script>
+    </div>
 </body>
 
 </html>
