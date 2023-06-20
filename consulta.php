@@ -63,7 +63,7 @@
                                 <div class="modal-header">
                                     <h3 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Consultas</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close">X</button>
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body row g-2">
                                     <div class="form-floating mb-3 col-md-12">
