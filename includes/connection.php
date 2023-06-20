@@ -9,10 +9,10 @@ if($url_db == "127.0.0.1" || $url_db == "localhost"){
     $db = 'saudesempre';
 }
 else {
-    $host = 'localhost';
-    $user = 'u383719585_saudesempre';
-    $pass = '44GpPS$cu&Bp';
-    $db = 'u383719585_saudesempre';
+    $host = '';
+    $user = '';
+    $pass = '';
+    $db = '';
 }
 
 $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
