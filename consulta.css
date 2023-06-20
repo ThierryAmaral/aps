@@ -4,11 +4,14 @@
 
 .secao-primary{
     margin: 0px auto;
-    max-width: 1500px;
+    max-width: 1300px;
     padding-right: 15px;
-    padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.negrito{
+    font-weight: bold;
 }
 
 .secao-secondary{

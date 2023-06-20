@@ -7,55 +7,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="consulta.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
-    <title>Consulta de Paciênte</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-        crossorigin="anonymous"></script>
+    <title>Consultas</title>
 
 </head>
 
 <body>
     <div class="secao-primary">
         <div class="row flex-nowrap">
-            <div class="bg-white col-auto">
+            <div class="bg-white col-auto p-2">
                 <div class="bg-white">
                     <a class="d-flex text-decoration-none align-items-center text-dark justify-content-center" href="">
-                        <span class="fs-4 d-none d-sm-inline">SÁUDE SEMPRE</h2>
+                        <span class="fs-5 d-none d-sm-inline">SÁUDE SEMPRE</h2>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mt-4">
                         <li class="nav-item">
                             <a href="#" class="nav-link text-dark">
-                                PÁGINA INICIAL
+                                <span class="fs-6 d-none d-sm-inline">PÁGINA INICIAL</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="consulta.php" class="nav-link text-dark">
-                                <span class="fs-4 d-none d-sm-inline">CONSULTAS</span>
+                                <span class="fs-6 d-none d-sm-inline">CONSULTAS</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="pacientes.php" class="nav-link text-dark">
-                                <span class="fs-4 d-none d-sm-inline">PACIENTES</span>
+                                <span class="fs-6 d-none d-sm-inline">PACIENTES</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link text-dark">
-                                <span class="fs-4 d-none d-sm-inline">FILA DE ATENDIMENTOS</span>
+                                <span class="fs-6 d-none d-sm-inline">FILA DE ATENDIMENTOS</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="back d-flex flex-column w-100">
-                <div class="secao-secondary">
+            <div class="back d-flex flex-column">
+                <div class="secao-secondary p-3">
 
                     <!-- Button trigger modal -->
                     <button type="button" class="p-2 btn btn-success mb-3" data-bs-toggle="modal"
@@ -69,12 +61,30 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Consultas</h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                        aria-label="Close">X</button>
                                 </div>
-                                <div class="modal-body">
-                                    <input type="text">
+                                <div class="modal-body row g-2">
+                                    <div class="form-floating mb-3 col-md-12">
+                                        <select class="qtd_select form-select"
+                                            aria-label="Floating label select example">
+                                            <option selected value="">SELECIONE O USUÁRIO</option>
+                                        </select>
+                                        <label for="floatingSelect">SELECIONE O USUÁRIO</label>
+                                    </div>
+                                    <div class="form-floating mb-3 col-md-5">
+                                        <input type="date" class="form-control"
+                                            placeholder=" ">
+                                        <label for="floatingInput">SELECIONE A DATA</label>
+                                    </div>
+                                    <div class="form-floating mb-3 col-md-7">
+                                        <select class="qtd_select form-select"
+                                            aria-label="Floating label select example">
+                                            <option selected value="">TIPO DE CONSULTA</option>
+                                        </select>
+                                        <label for="floatingSelect">TIPO DE CONSULTA</label>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -85,36 +95,38 @@
                         </div>
                     </div>
 
-                    <div class="font-weight-bold">
-                        FILTROS
-                    </div>
-                    <div class="row g-2 mb-3">
-                        <div class="form-group mb-2 col-md-3">
+                    <div class="negrito">FILTROS</div>
+                    <div class="row g-3 mb-3">
+
+                        <div class="col-md-2">
                             <input type="date" class="form-control">
                         </div>
-                        <div class="form-group mb-2 col-md-6">
-                            <input type="text" class="form-control">
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="NOME DO PACIENTE">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">FILTRAR</button>
+
+                        <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
+
                     </div>
 
-                    <table class="table table-striped">
+                    <table class="table table-striped border">
                         <thead>
                             <tr class="bg-info">
-                                <th scope="col">Paciente</th>
-                                <th scope="col">Telefone</th>
-                                <th scope="col">Data e Hora</th>
-                                <th scope="col">Forma de Pagamento</th>
-                                <th scope="col">Status</th>
+                                <th class="text-white" scope="col">Paciente</th>
+                                <th class="text-white" scope="col">Telefone</th>
+                                <th class="text-white" scope="col">Data e Hora</th>
+                                <th class="text-white" scope="col">Forma de Pagamento</th>
+                                <th class="text-white" scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                                <th class="bg-white" scope="row">1</th>
+                                <td class="bg-white">Mark</td>
+                                <td class="bg-white">Otto</td>
+                                <td class="bg-white">@mdo</td>
+                                <td class="bg-white">@mdo</td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
@@ -124,11 +136,11 @@
                                 <td>@mdo</td>
                             </tr>
                             <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>@mdo</td>
+                                <th class="bg-white" scope="row">3</th>
+                                <td class="bg-white">Larry</td>
+                                <td class="bg-white">the Bird</td>
+                                <td class="bg-white">@twitter</td>
+                                <td class="bg-white">@mdo</td>
                             </tr>
                         </tbody>
                     </table>
@@ -137,6 +149,14 @@
         </div>
     </div>
     <script src="consulta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
