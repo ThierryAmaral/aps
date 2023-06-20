@@ -1,3 +1,7 @@
+<?php
+include_once("includes/connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -70,7 +74,14 @@
                                     <div class="form-floating mb-3 col-md-12">
                                         <select class="qtd_select form-select"
                                             aria-label="Floating label select example">
-                                            <option selected value="">Selecione o Usuário</option>
+                                            <?php
+                                            $result = $conn->prepare("SELECT * FROM fichapaciente");
+                                            $result->execute();
+                                            $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                                            foreach ($rows as $o) { ?>
+                                                <option selected value=""><?php echo $o['NomePaciente']; ?></option>
+                                            <?php } ?>
+
                                         </select>
                                         <label for="floatingSelect">Selecione o Usuário</label>
                                     </div>
@@ -81,7 +92,8 @@
                                     <div class="form-floating mb-3 col-md-7">
                                         <select class="qtd_select form-select"
                                             aria-label="Floating label select example">
-                                            <option selected value="">Tipo de Consulta</option>
+                                            <option selected value="">Plano de Saúde</option>
+                                            <option selected value="">Particular</option>
                                         </select>
                                         <label for="floatingSelect">Tipo de Consulta</label>
                                     </div>
