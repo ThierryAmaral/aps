@@ -109,14 +109,14 @@ include_once("includes/connection.php");
                                             </div>
                                             <div class="form-floating mb-3 col-md-4 input-area">
                                                 <input type="text" name="Contato" class="form-control" id="vContato"
-                                                    minlength="14" maxlength="15" placeholder=" ">
+                                                    minlength="8" maxlength="11" placeholder=" ">
                                                 <label for="vContato">Contato</label>
                                             </div>
                                         </div>
                                         <div class="row g-1 text-center input-area">
                                             <div class="form-floating mb-3 col-md-2 input-area">
                                                 <input type="text" name="CEP" class="form-control" id="vCEP"
-                                                    placeholder=" " minlength="9" maxlength="9">
+                                                    placeholder=" " minlength="8" maxlength="8">
                                                 <label for="vCEP">Cep</label>
                                             </div>
                                             <div class="form-floating mb-3 col-md-3">
@@ -295,7 +295,7 @@ include_once("includes/connection.php");
                                                         </div>
                                                         <div class="form-floating mb-3 col-md-4 input-area">
                                                             <input type="text" name="Contato" class="form-control"
-                                                                id="vContato" minlength="14" maxlength="15" placeholder=" "
+                                                                id="vContato" minlength="8" maxlength="11" placeholder=" "
                                                                 value="<?php echo $o['Contato']; ?>">
                                                             <label for="vContato">Contato</label>
                                                         </div>
@@ -303,7 +303,7 @@ include_once("includes/connection.php");
                                                     <div class="row g-1 text-center input-area">
                                                         <div class="form-floating mb-3 col-md-2 input-area">
                                                             <input type="text" name="CEP" class="form-control" id="vCEP"
-                                                                placeholder=" " minlength="9" maxlength="9"
+                                                                placeholder=" " minlength="8" maxlength="8"
                                                                 value="<?php echo $o['CEP']; ?>">
                                                             <label for="vCEP">Cep</label>
                                                         </div>
