@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="consulta.css">
+    
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="consulta.css">
 
     <title>Consultas</title>
 
@@ -15,7 +16,7 @@
 
 <body>
     <div class="secao-primary">
-        <div class="row flex-nowrap">
+        <div class="d-flex flex-nowrap">
             <div class="bg-white col-auto p-2">
                 <div class="bg-white">
                     <a class="d-flex text-decoration-none align-items-center text-dark justify-content-center" href="">
@@ -46,11 +47,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="back d-flex flex-column">
+            <div class="back">
                 <div class="secao-secondary p-3">
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="p-2 btn btn-success mb-3" data-bs-toggle="modal"
+                    <button type="button" class="p-2 btn btn-info mb-3 text-white" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         NOVA CONSULTA
                     </button>
@@ -69,21 +70,58 @@
                                     <div class="form-floating mb-3 col-md-12">
                                         <select class="qtd_select form-select"
                                             aria-label="Floating label select example">
-                                            <option selected value="">SELECIONE O USUÁRIO</option>
+                                            <option selected value="">Selecione o Usuário</option>
                                         </select>
-                                        <label for="floatingSelect">SELECIONE O USUÁRIO</label>
+                                        <label for="floatingSelect">Selecione o Usuário</label>
                                     </div>
                                     <div class="form-floating mb-3 col-md-5">
-                                        <input type="date" class="form-control"
-                                            placeholder=" ">
-                                        <label for="floatingInput">SELECIONE A DATA</label>
+                                        <input type="date" class="form-control" placeholder=" ">
+                                        <label for="floatingInput">Selecione a Data</label>
                                     </div>
                                     <div class="form-floating mb-3 col-md-7">
                                         <select class="qtd_select form-select"
                                             aria-label="Floating label select example">
-                                            <option selected value="">TIPO DE CONSULTA</option>
+                                            <option selected value="">Tipo de Consulta</option>
                                         </select>
-                                        <label for="floatingSelect">TIPO DE CONSULTA</label>
+                                        <label for="floatingSelect">Tipo de Consulta</label>
+                                    </div>
+                                    <div class="d-flex flex-wrap mb-3 padd">
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste" onclick="chamarData()">09:00 -
+                                                09:30</button>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste2" onclick="chamarData2()">09:45 -
+                                                10:15</button>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste3" onclick="chamarData3()">10:30 - 11:00</button>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste4" onclick="chamarData4()">11:15 - 11:45</button>
+                                            
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste5" onclick="chamarData5()">13:30 - 14:00</button>
+                                            
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste6" onclick="chamarData6()">14:15 - 14:45</button>
+                                            
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste7" onclick="chamarData7()">15:00 - 15:30</button>
+                                            
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="border btn btn-light" type="button" id="teste8" onclick="chamarData8()">15:45 - 16:15</button>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" cols="60" placeholder=" " maxlength="200"
+                                            style="height: 100px"></textarea>
+                                        <label for="resumo">Motivo da Consulta</label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -96,14 +134,16 @@
                     </div>
 
                     <div class="negrito">FILTROS</div>
-                    <div class="row g-3 mb-3">
+                    <div class="row g-2 mb-3">
 
-                        <div class="col-md-2">
-                            <input type="date" class="form-control">
+                        <div class="form-floating mb-2 col-md-2">
+                            <input type="date" class="form-control" placeholder=" ">
+                            <label for="floatingInput">Data</label>
                         </div>
 
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="NOME DO PACIENTE">
+                        <div class="form-floating mb-2 col-md-6">
+                            <input type="text" class="form-control" placeholder=" ">
+                            <label for="floatingInput">Nome do Paciente</label>
                         </div>
 
                         <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
@@ -113,11 +153,11 @@
                     <table class="table table-striped border">
                         <thead>
                             <tr class="bg-info">
-                                <th class="text-white" scope="col">Paciente</th>
-                                <th class="text-white" scope="col">Telefone</th>
-                                <th class="text-white" scope="col">Data e Hora</th>
-                                <th class="text-white" scope="col">Forma de Pagamento</th>
-                                <th class="text-white" scope="col">Status</th>
+                                <th class="texto text-white" scope="col">PACIENTE</th>
+                                <th class="texto text-white" scope="col">TELEFONE</th>
+                                <th class="texto text-white" scope="col">DATA E HORA</th>
+                                <th class="texto text-white" scope="col">FORMA DE PAGAMENTO</th>
+                                <th class="texto text-white" scope="col">STATUS</th>
                             </tr>
                         </thead>
                         <tbody>

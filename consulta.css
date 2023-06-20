@@ -1,17 +1,11 @@
+.secao-primary{
+    width: 1500px;
+    margin: 0px auto;
+}
+
 .back{
     background-color: LightGray;
-}
-
-.secao-primary{
-    margin: 0px auto;
-    max-width: 1300px;
-    padding-right: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.negrito{
-    font-weight: bold;
+    width: 100%;
 }
 
 .secao-secondary{
@@ -20,4 +14,16 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.negrito{
+    font-weight: bold;
+}
+
+.texto{
+    font-weight: normal;
+}
+
+.padd{
+    padding: initial;
 }
