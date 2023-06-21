@@ -35,3 +35,15 @@ body {
 .padd {
     padding: initial;
 }
+
+.options-data {
+    gap: 10px;
+}
+.options-data .btn {
+    width: 100%;
+}
+@media (min-width: 576px) {
+    .options-data .col-sm-4 {
+        width: calc(33.33333333% - (10px - (10px / 3)));
+    }
+}

@@ -14,6 +14,10 @@ include_once("includes/connection.php");
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="consulta.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <title>Consultas</title>
 
 </head>
@@ -56,14 +60,14 @@ include_once("includes/connection.php");
 
                     <!-- Button trigger modal -->
                     <button type="button" class="p-2 btn btn-info mb-3 text-white" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
+                        data-bs-target="#novaConsulta">
                         NOVA CONSULTA
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
+                    <div class="modal fade" id="novaConsulta" tabindex="-1" data-bs-backdrop="static"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Consultas</h3>
@@ -79,7 +83,9 @@ include_once("includes/connection.php");
                                             $result->execute();
                                             $rows = $result->fetchAll(PDO::FETCH_ASSOC);
                                             foreach ($rows as $o) { ?>
-                                                <option selected value=""><?php echo $o['NomePaciente']; ?></option>
+                                                <option selected value="">
+                                                    <?php echo $o['NomePaciente']; ?>
+                                                </option>
                                             <?php } ?>
 
                                         </select>
@@ -97,46 +103,56 @@ include_once("includes/connection.php");
                                         </select>
                                         <label for="floatingSelect">Tipo de Consulta</label>
                                     </div>
-                                    <div class="d-flex flex-wrap mb-3 padd">
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste"
-                                                onclick="chamarData()">09:00 -
-                                                09:30</button>
-                                        </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste2"
-                                                onclick="chamarData2()">09:45 -
-                                                10:15</button>
-                                        </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste3"
-                                                onclick="chamarData3()">10:30 - 11:00</button>
-                                        </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste4"
-                                                onclick="chamarData4()">11:15 - 11:45</button>
+                                    <div class="d-flex flex-wrap mb-3 options-data">
 
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option1"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option1">09:00 - 09:30</label>
                                         </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste5"
-                                                onclick="chamarData5()">13:30 - 14:00</button>
 
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option2"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option2">09:45 - 10:15</label>
                                         </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste6"
-                                                onclick="chamarData6()">14:15 - 14:45</button>
 
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option3"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option3">10:30 - 11:00</label>
                                         </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste7"
-                                                onclick="chamarData7()">15:00 - 15:30</button>
 
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option4"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option4">11:15 - 11:45</label>
                                         </div>
-                                        <div class="text-center">
-                                            <button class="border btn btn-light" type="button" id="teste8"
-                                                onclick="chamarData8()">15:45 - 16:15</button>
 
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option5"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option5">13:30 - 14:00</label>
                                         </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option6"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option6">14:15 - 14:45</label>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option7"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option7">15:00 - 15:30</label>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <input type="radio" name="options" class="btn-check" id="option8"
+                                                autocomplete="off">
+                                            <label class="btn btn-outline-primary" for="option8">15:45 - 16:15</label>
+                                        </div>
+
                                     </div>
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" cols="60" placeholder=" " maxlength="200"
@@ -152,6 +168,12 @@ include_once("includes/connection.php");
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#novaConsulta").modal('show');
+                        });
+                    </script>
 
                     <div class="negrito">FILTROS</div>
                     <div class="row g-2 mb-3">
