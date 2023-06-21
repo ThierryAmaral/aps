@@ -211,7 +211,7 @@ include_once("includes/connection.php");
                                         <?php echo $o['CPF']; ?>
                                     </td>
                                     <td class="bg-white">
-                                        <?php echo $o['DataNascimento']; ?>
+                                        <?php echo date("d/m/Y", strtotime($o['DataNascimento'])); ?>
                                     </td>
                                     <td class="bg-white">
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">

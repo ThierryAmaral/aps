@@ -2,6 +2,8 @@
 
 include_once("includes/connection.php");
 
+session_start();
+
 $usuario = isset($_POST['usuario_consulta']) ? $_POST['usuario_consulta'] : "";
 $data = isset($_POST['data_consulta']) ? $_POST['data_consulta'] : "";
 $tipo = isset($_POST['tipo_consulta']) ? $_POST['tipo_consulta'] : "";
@@ -21,6 +23,11 @@ $insert_consulta->bindParam(":status", $status);
 $insert_consulta->bindParam(":usuario", $usuario);
 
 if($insert_consulta->execute()){
+    $_SESSION['mensagem'] = "Consulta salva com sucesso.";
+    header('Location: consulta.php');
+    exit();
+}else{
+    $_SESSION['mensagem'] = "Falha ao salvar consulta.";
     header('Location: consulta.php');
     exit();
 }

@@ -25,8 +25,10 @@ document.getElementById("dataConsulta").addEventListener("change", (event) => {
             if (typeof (result) == "object") {
                 console.log("é uma array.")
 
+                let count = 0;
                 for (h of Object.keys(horas)) {
                     let timeEnd = horas[h]
+                    count += 1;
 
                     let disabled = "";
                     let htmlClass = `btn btn-outline-primary`
@@ -40,9 +42,9 @@ document.getElementById("dataConsulta").addEventListener("change", (event) => {
                     }
 
                     options += `<div class="col-sm-4">
-                        <input type="radio" name="options" class="btn-check" id="option8"
+                        <input type="radio" name="options" class="btn-check" id="option${count}"
                             autocomplete="off" value="${h}:00" ${disabled}>
-                        <label class="${htmlClass}" for="option8">${h} - ${timeEnd}</label>
+                        <label class="${htmlClass}" for="option${count}">${h} - ${timeEnd}</label>
                     </div>`
                 }
             }
