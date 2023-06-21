@@ -267,7 +267,7 @@ if (isset($_POST['id'])) {
 
                     <table class="table table-striped">
                         <thead>
-                            <tr class="bg-info">
+                            <tr class="bg-primary">
                                 <th class="texto text-white" scope="col">ID</th>
                                 <th class="texto text-white" scope="col">Paciente</th>
                                 <th class="texto text-white" scope="col">CPF</th>

@@ -67,7 +67,7 @@ include_once("includes/connection.php");
                 <div class="secao-secondary p-3">
 
                     <!-- Button Cadastro -->
-                    <button type="button" class="p-2 btn btn-info mb-3 text-white" data-bs-toggle="modal"
+                    <button type="button" class="p-2 btn btn-success mb-3 text-white" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         NOVO PACIENTE
                     </button>
@@ -155,7 +155,7 @@ include_once("includes/connection.php");
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Fechar</button>
-                                            <input type="button" class="btn btn-primary" value="Enviar"
+                                            <input type="button" class="btn btn-primary" value="Cadastrar"
                                                 onclick="FinalizarPedido(this.form)">
                                         </div>
                                     </form>
@@ -165,17 +165,21 @@ include_once("includes/connection.php");
                         </div>
                     </div>
 
-                    <div class="font-weight-bold">
-                        FILTRAR PACIENTE
-                    </div>
-                    <div class="row g-2 mb-3">
-                        <div class="form-group mb-2 col-md-3">
-                            <input type="text" class="form-control" placeholder="INSIRA O NOME">
+                    <form action="" method="post">
+                        <div class="row g-2 mb-3">
+                            
+                            <div class="form-floating mb-2 col-md-6">
+                                <input type="text" class="form-control" name="busca" placeholder=" " value="">
+                                <label for="floatingInput">Nome do Paciente</label>
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
+
                         </div>
-                    </div>
+                    </form>
+
                     <table class="table table-striped">
                         <thead>
-                            <tr class="bg-info">
+                            <tr class="bg-primary">
                                 <th class="texto text-white" scope="col">ID</th>
                                 <th class="texto text-white" scope="col">Paciente</th>
                                 <th class="texto text-white" scope="col">CPF</th>
@@ -185,8 +189,14 @@ include_once("includes/connection.php");
                         </thead>
                         <tbody>
                             <?php
-
-                            $result = $conn->prepare("SELECT * FROM fichapaciente");
+                            if(isset($_POST['busca'])){
+                                $busca = $_POST['busca'];
+                            }else{
+                                $busca = '';
+                            }
+                                
+                            
+                            $result = $conn->prepare("SELECT * FROM fichapaciente WHERE NomePaciente like '%$busca%'");
                             $result->execute();
                             $rows = $result->fetchAll(PDO::FETCH_ASSOC);
                             foreach ($rows as $o) { ?>
