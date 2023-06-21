@@ -5,9 +5,7 @@ session_start();
 
 
 if (isset($_POST['id'])) {
-
     $id = $_POST['id'];
-    $consulta = $_POST['consulta'];
     $motivo = $_POST['motivo'];
     $diagnostico = $_POST['diagnostico'];
     $receita = $_POST['receita'];
@@ -116,9 +114,9 @@ if (isset($_POST['id'])) {
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder=" " id="motivo" name="motivo"
+                                    <textarea class="form-control" readonly placeholder=" " id="motivo" name="motivo"
                                         style="height: 70px"><?php echo $row['MotivoConsulta']; ?></textarea>
-                                    <label for="floatingTextarea2">Diagnóstico o Atendimento</label>
+                                    <label for="floatingTextarea2">Motivo da Consulta</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
