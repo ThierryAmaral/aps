@@ -41,7 +41,7 @@ document.getElementById("dataConsulta").addEventListener("change", (event) => {
 
                     options += `<div class="col-sm-4">
                         <input type="radio" name="options" class="btn-check" id="option8"
-                            autocomplete="off" value="${h}:00" >
+                            autocomplete="off" value="${h}:00" ${disabled}>
                         <label class="${htmlClass}" for="option8">${h} - ${timeEnd}</label>
                     </div>`
                 }
