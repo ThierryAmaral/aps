@@ -79,6 +79,7 @@ include_once("includes/connection.php");
                                         <select class="qtd_select form-select"
                                             aria-label="Floating label select example">
                                             <?php
+
                                             $result = $conn->prepare("SELECT * FROM fichapaciente");
                                             $result->execute();
                                             $rows = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -92,7 +93,7 @@ include_once("includes/connection.php");
                                         <label for="floatingSelect">Selecione o Usuário</label>
                                     </div>
                                     <div class="form-floating mb-3 col-md-5">
-                                        <input type="date" class="form-control" placeholder=" ">
+                                        <input type="date" class="form-control" placeholder=" " id="dataConsulta">
                                         <label for="floatingInput">Selecione a Data</label>
                                     </div>
                                     <div class="form-floating mb-3 col-md-7">
@@ -103,56 +104,11 @@ include_once("includes/connection.php");
                                         </select>
                                         <label for="floatingSelect">Tipo de Consulta</label>
                                     </div>
+
                                     <div class="d-flex flex-wrap mb-3 options-data">
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option1"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option1">09:00 - 09:30</label>
+                                        <div class="alert alert-warning w-100">
+                                            <span><b>Selecione uma data</b> para visualizar os horários disponiveis</span>
                                         </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option2"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option2">09:45 - 10:15</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option3"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option3">10:30 - 11:00</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option4"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option4">11:15 - 11:45</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option5"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option5">13:30 - 14:00</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option6"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option6">14:15 - 14:45</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option7"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option7">15:00 - 15:30</label>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <input type="radio" name="options" class="btn-check" id="option8"
-                                                autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="option8">15:45 - 16:15</label>
-                                        </div>
-
                                     </div>
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" cols="60" placeholder=" " maxlength="200"
