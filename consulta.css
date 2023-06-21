@@ -1,6 +1,14 @@
+body {
+    background-color: #ededed!important;
+}
+
 .secao-primary{
-    width: 1500px;
+    width: 100%;
     margin: 0px auto;
+}
+
+.menu {
+    height: 100vh;
 }
 
 .back{
@@ -16,14 +24,14 @@
     margin-left: auto;
 }
 
-.negrito{
+.negrito {
     font-weight: bold;
 }
 
-.texto{
+.texto {
     font-weight: normal;
 }
 
-.padd{
+.padd {
     padding: initial;
 }

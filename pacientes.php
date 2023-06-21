@@ -33,7 +33,7 @@ include_once("includes/connection.php");
 <body>
     <div class="secao-primary">
         <div class="d-flex flex-nowrap">
-            <div class="bg-white col-auto p-2">
+            <div class="menu bg-white col-auto p-2">
                 <div class="bg-white">
                     <a class="d-flex text-decoration-none align-items-center text-dark justify-content-center" href="">
                         <span class="fs-5 d-none d-sm-inline">SÁUDE SEMPRE</h2>
@@ -56,7 +56,7 @@ include_once("includes/connection.php");
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-dark">
+                            <a href="fila-atendimentos.php" class="nav-link text-dark">
                                 <span class="fs-6 d-none d-sm-inline">FILA DE ATENDIMENTOS</span>
                             </a>
                         </li>
