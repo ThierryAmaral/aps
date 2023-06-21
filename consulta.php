@@ -59,7 +59,7 @@ include_once("includes/connection.php");
                 <div class="secao-secondary p-3">
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="p-2 btn btn-info mb-3 text-white" data-bs-toggle="modal"
+                    <button type="button" class="p-2 btn btn-success mb-3 text-white" data-bs-toggle="modal"
                         data-bs-target="#novaConsulta">
                         NOVA CONSULTA
                     </button>
@@ -107,7 +107,8 @@ include_once("includes/connection.php");
 
                                     <div class="d-flex flex-wrap mb-3 options-data">
                                         <div class="alert alert-warning w-100">
-                                            <span><b>Selecione uma data</b> para visualizar os horários disponiveis</span>
+                                            <span><b>Selecione uma data</b> para visualizar os horários
+                                                disponiveis</span>
                                         </div>
                                     </div>
                                     <div class="form-floating mb-3">
@@ -118,39 +119,32 @@ include_once("includes/connection.php");
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                        data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-primary">Cadastrar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <script>
-                        $(document).ready(function () {
-                            $("#novaConsulta").modal('show');
-                        });
-                    </script>
+                    <form action="" method="post">
+                        <div class="row g-2 mb-3">
 
-                    <div class="negrito">FILTROS</div>
-                    <div class="row g-2 mb-3">
+                            <div class="form-floating mb-2 col-md-2">
+                                <input type="date" class="form-control" name="bdata" placeholder=" " value="">
+                                <label for="floatingInput">Data</label>
+                            </div>
+                            <div class="form-floating mb-2 col-md-6">
+                                <input type="text" class="form-control" name="busca" placeholder=" " value="">
+                                <label for="floatingInput">Nome do Paciente</label>
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
 
-                        <div class="form-floating mb-2 col-md-2">
-                            <input type="date" class="form-control" placeholder=" ">
-                            <label for="floatingInput">Data</label>
                         </div>
-
-                        <div class="form-floating mb-2 col-md-6">
-                            <input type="text" class="form-control" placeholder=" ">
-                            <label for="floatingInput">Nome do Paciente</label>
-                        </div>
-
-                        <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
-
-                    </div>
+                    </form>
 
                     <table class="table table-striped border">
                         <thead>
-                            <tr class="bg-info">
+                            <tr class="bg-primary">
                                 <th class="texto text-white" scope="col">ID</th>
                                 <th class="texto text-white" scope="col">Paciente</th>
                                 <th class="texto text-white" scope="col">Data e Hora</th>
@@ -161,17 +155,24 @@ include_once("includes/connection.php");
                         </thead>
                         <tbody>
                             <?php
+                            if (isset($_POST['busca']) && isset($_POST['bdata'])) {
+                                $busca = $_POST['busca'];
+                                $bdata = $_POST['bdata'];
+                            } else {
+                                $busca = '';
+                                $bdata = '';
+                            }
 
-                            $result = $conn->prepare("select c.*, p.NomePaciente from consultas c, fichapaciente p where c.FichaPaciente_id = p.id and c.Status != 'atendido'");
+                            $result = $conn->prepare("SELECT c.*, p.NomePaciente FROM consultas c, fichapaciente p WHERE c.FichaPaciente_id = p.id AND c.Status != 'atendido' AND NomePaciente like '%$busca%' AND DataHora like '%$bdata%'");
                             $result->execute();
                             $rows = $result->fetchAll(PDO::FETCH_ASSOC);
                             foreach ($rows as $o) { ?>
                                 <tr>
                                     <td class="bg-white">
-                                        <?php echo $id = $o['id']; ?>
+                                        <?php echo $o['id']; ?>
                                     </td>
                                     <td class="bg-white">
-                                        <?php echo $id = $o['NomePaciente']; ?>
+                                        <?php echo $o['NomePaciente']; ?>
                                     </td>
                                     <td class="bg-white">
                                         <?php echo $o['DataHora']; ?>
