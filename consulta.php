@@ -219,11 +219,7 @@ include_once("includes/connection.php");
                                                 </button>
                                             <?php } ?>
                                             <ul class="dropdown-menu">
-                                                <?php if ($o['Status'] != 'atendido') { ?>
-                                                    <li><a class="dropdown-item"
-                                                            href="status.php?id=<?php echo $o['id']; ?>&status=atendido">Atendido</a>
-                                                    </li>
-                                                <?php }
+                                                <?php
                                                 if ($o['Status'] != 'confirmado') { ?>
                                                     <li><a class="dropdown-item"
                                                             href="status.php?id=<?php echo $o['id']; ?>&status=confirmado">Confirmado</a>

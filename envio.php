@@ -1,5 +1,5 @@
 <?php
-$conexao = mysqli_connect('127.0.0.1', 'root', '', 'saudesempre');
+include_once("includes/connection.php");
 
 $nome = $_POST['Nome'];
 $data = $_POST['Data'];
