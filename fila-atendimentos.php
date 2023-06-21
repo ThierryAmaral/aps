@@ -1,10 +1,13 @@
 <?php
 include_once("includes/connection.php");
 
+session_start();
+
 
 if (isset($_POST['id'])) {
 
     $id = $_POST['id'];
+    $consulta = $_POST['consulta'];
     $motivo = $_POST['motivo'];
     $diagnostico = $_POST['diagnostico'];
     $receita = $_POST['receita'];
@@ -12,22 +15,29 @@ if (isset($_POST['id'])) {
     $descricao = $_POST['descricao'];
     $paciente = $_POST['paciente'];
 
-    var_dump($_POST);
-
     $insert = $conn->prepare("INSERT INTO fichaatendimento (MotivoConsulta, Diagnostico, ReceitaRemedios, Retorno, Descricao, FichaPaciente_id) VALUES(:MotivoConsulta, :Diagnostico, :ReceitaRemedios, :Retorno, :Descricao, :FichaPaciente_id)");
     $insert->bindParam(":MotivoConsulta", $motivo);
     $insert->bindParam(":Diagnostico", $diagnostico);
     $insert->bindParam(":ReceitaRemedios", $receita);
     $insert->bindParam(":Retorno", $retorno);
-    $insert->bindParam(":Descricao", $Descricao);
+    $insert->bindParam(":Descricao", $descricao);
     $insert->bindParam(":FichaPaciente_id", $paciente);
     $insert->execute();
 
-    if($insert){
-        echo "Sucesso!";
-    }
+    if ($insert) {
+        $update = $conn->prepare("UPDATE consultas SET Status = 'atendido' WHERE id = :id");
+        $update->bindParam(":id", $id);
+        $update->execute();
 
-    // header("Location: fila-atendimentos.php?id=$id");
+        $_SESSION['mensagem'] = "Atendimento salvo com sucesso!";
+
+        header("Location: fila-atendimentos.php");
+        die();
+    } else {
+        $_SESSION['mensagem'] = "Falha ao salvar o atendimento.";
+        header("Location: fila-atendimentos.php?id=$id");
+        die();
+    }
 }
 
 
@@ -92,7 +102,9 @@ if (isset($_POST['id'])) {
                         </div>
                         <div class="modal-body">
                             <form action="fila-atendimentos.php" method="POST">
-                                <h6>Consulta - <?php echo date("d/m/Y H:i", strtotime($row['DataHora'])); ?></h6>
+                                <h6>Consulta -
+                                    <?php echo date("d/m/Y H:i", strtotime($row['DataHora'])); ?>
+                                </h6>
 
                                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                 <input type="hidden" name="paciente" value="<?php echo $row['paciente']; ?>">
@@ -104,32 +116,32 @@ if (isset($_POST['id'])) {
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder=" " id="motivo"
-                                        name="motivo" style="height: 70px"><?php echo $row['MotivoConsulta']; ?></textarea>
+                                    <textarea class="form-control" placeholder=" " id="motivo" name="motivo"
+                                        style="height: 70px"><?php echo $row['MotivoConsulta']; ?></textarea>
                                     <label for="floatingTextarea2">Diagnóstico o Atendimento</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder=" " id="diagnostico"
-                                        name="diagnostico" style="height: 70px"></textarea>
+                                    <textarea class="form-control" placeholder=" " id="diagnostico" name="diagnostico"
+                                        style="height: 70px"></textarea>
                                     <label for="floatingTextarea2">Diagnóstico o Atendimento</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder=" " id="receita"
-                                        name="receita" style="height: 70px"></textarea>
+                                    <textarea class="form-control" placeholder=" " id="receita" name="receita"
+                                        style="height: 70px"></textarea>
                                     <label for="floatingTextarea2">Descreva a Receita</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder=" " id="descricao"
-                                        name="descricao" style="height: 100px" required></textarea>
+                                    <textarea class="form-control" placeholder=" " id="descricao" name="descricao"
+                                        style="height: 100px" required></textarea>
                                     <label for="floatingTextarea2">Descreva o Atendimento</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder=" " id="retorno"
-                                        name="retorno" style="height: 70px"></textarea>
+                                    <textarea class="form-control" placeholder=" " id="retorno" name="retorno"
+                                        style="height: 70px"></textarea>
                                     <label for="floatingTextarea2">Retorno</label>
                                 </div>
 
@@ -147,26 +159,26 @@ if (isset($_POST['id'])) {
                                     <?php echo date("d/m/Y H:i", strtotime($row['DataHora'])); ?>
                                 </h6>
                                 <div class="form-floating mb-1">
-                                    <textarea class="form-control" readonly disabled placeholder=" "
-                                        id="floatingTextarea2" style="height: 70px"><?php echo $a['MotivoConsulta']; ?></textarea>
+                                    <textarea class="form-control" readonly disabled placeholder=" " id="floatingTextarea2"
+                                        style="height: 70px"><?php echo $a['MotivoConsulta']; ?></textarea>
                                     <label for="floatingTextarea2">Motivo da Consulta</label>
                                 </div>
 
                                 <div class="form-floating mb-1">
-                                    <textarea class="form-control" readonly disabled placeholder=" "
-                                        id="floatingTextarea2" style="height: 70px"><?php echo $a['Diagnostico']; ?></textarea>
+                                    <textarea class="form-control" readonly disabled placeholder=" " id="floatingTextarea2"
+                                        style="height: 70px"><?php echo $a['Diagnostico']; ?></textarea>
                                     <label for="floatingTextarea2">Diagnóstico</label>
                                 </div>
 
                                 <div class="form-floating mb-1">
-                                    <textarea class="form-control" readonly disabled placeholder=" "
-                                        id="floatingTextarea2" style="height: 70px"><?php echo $a['ReceitaRemedios']; ?></textarea>
+                                    <textarea class="form-control" readonly disabled placeholder=" " id="floatingTextarea2"
+                                        style="height: 70px"><?php echo $a['ReceitaRemedios']; ?></textarea>
                                     <label for="floatingTextarea2">Receita</label>
                                 </div>
 
                                 <div class="form-floating mb-1">
-                                    <textarea class="form-control" readonly disabled placeholder=" "
-                                        id="floatingTextarea2" style="height: 100px"><?php echo $a['Diagnostico']; ?></textarea>
+                                    <textarea class="form-control" readonly disabled placeholder=" " id="floatingTextarea2"
+                                        style="height: 100px"><?php echo $a['Diagnostico']; ?></textarea>
                                     <label for="floatingTextarea2">Detalhes do Atendimento</label>
                                 </div>
 
@@ -183,6 +195,42 @@ if (isset($_POST['id'])) {
             </script>
         <?php }
     } ?>
+
+    <?php
+
+    if (isset($_SESSION['mensagem'])) {
+        session_destroy();
+    ?>
+
+        <div class="modal fade" id="mensagem" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title fs-5" id="exampleModalLabel">MENSAGEM</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <?php echo $_SESSION['mensagem']; ?>
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                            Ok
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $("#mensagem").modal('show');
+            });
+        </script>
+    <?php } ?>
 
     <div class="secao-primary">
         <div class="d-flex flex-nowrap">
@@ -209,7 +257,7 @@ if (isset($_POST['id'])) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-dark">
+                            <a href="fila-atendimentos.php" class="nav-link text-dark">
                                 <span class="fs-6 d-none d-sm-inline">FILA DE ATENDIMENTOS</span>
                             </a>
                         </li>
@@ -269,9 +317,9 @@ if (isset($_POST['id'])) {
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
-        <script src="js/fila-atendimento.js"></script>
+    <script src="js/fila-atendimento.js"></script>
 </body>
 
 </html>
