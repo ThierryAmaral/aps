@@ -239,7 +239,7 @@ include_once("includes/connection.php");
                                             <div class="modal-body">
                                                 <form action="excluir.php" method="post">
                                                     <input type="hidden" name="id" id="vId" value="<?php echo $o['id']; ?>">
-                                                    Tem certeza que deseja excluír a ficha do paciente?
+                                                    Tem certeza que deseja excluir a ficha do paciente?
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Não</button>
