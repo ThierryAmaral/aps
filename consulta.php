@@ -1,5 +1,7 @@
 <?php
 include_once("includes/connection.php");
+
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -65,81 +67,121 @@ include_once("includes/connection.php");
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="novaConsulta" tabindex="-1" data-bs-backdrop="static"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Consultas</h3>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body row g-2">
-                                    <div class="form-floating mb-3 col-md-12">
-                                        <select class="qtd_select form-select"
-                                            aria-label="Floating label select example">
-                                            <?php
-
-                                            $result = $conn->prepare("SELECT * FROM fichapaciente");
-                                            $result->execute();
-                                            $rows = $result->fetchAll(PDO::FETCH_ASSOC);
-                                            foreach ($rows as $o) { ?>
-                                                <option selected value="">
-                                                    <?php echo $o['NomePaciente']; ?>
-                                                </option>
-                                            <?php } ?>
-
-                                        </select>
-                                        <label for="floatingSelect">Selecione o Usuário</label>
+                    <form action="envio-consultas.php" method="POST">
+                        <div class="modal fade" id="novaConsulta" tabindex="-1" data-bs-backdrop="static"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Consultas</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
-                                    <div class="form-floating mb-3 col-md-5">
-                                        <input type="date" class="form-control" placeholder=" " id="dataConsulta">
-                                        <label for="floatingInput">Selecione a Data</label>
-                                    </div>
-                                    <div class="form-floating mb-3 col-md-7">
-                                        <select class="qtd_select form-select"
-                                            aria-label="Floating label select example">
-                                            <option selected value="">Plano de Saúde</option>
-                                            <option selected value="">Particular</option>
-                                        </select>
-                                        <label for="floatingSelect">Tipo de Consulta</label>
-                                    </div>
+                                    <div class="modal-body row g-2">
+                                        <div class="form-floating mb-3 col-md-12">
+                                            <select class="qtd_select form-select"
+                                                aria-label="Floating label select example" name="usuario_consulta">
+                                                <?php
 
-                                    <div class="d-flex flex-wrap mb-3 options-data">
-                                        <div class="alert alert-warning w-100">
-                                            <span><b>Selecione uma data</b> para visualizar os horários
-                                                disponiveis</span>
+                                                $result = $conn->prepare("SELECT * FROM fichapaciente");
+                                                $result->execute();
+                                                $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                                                foreach ($rows as $o) { ?>
+                                                    <option selected value="<?php echo $o['id']; ?>">
+                                                        <?php echo $o['NomePaciente']; ?>
+                                                    </option>
+                                                <?php } ?>
+
+                                            </select>
+                                            <label for="floatingSelect">Selecione o Usuário</label>
+                                        </div>
+                                        <div class="form-floating mb-3 col-md-5">
+                                            <input type="date" class="form-control" placeholder=" " name="data_consulta"
+                                                id="dataConsulta">
+                                            <label for="floatingInput">Selecione a Data</label>
+                                        </div>
+                                        <div class="form-floating mb-3 col-md-7">
+                                            <select class="qtd_select form-select"
+                                                aria-label="Floating label select example" name="tipo_consulta">
+                                                <option selected value="Plano">Plano de Saúde</option>
+                                                <option selected value="Particular">Particular</option>
+                                            </select>
+                                            <label for="floatingSelect">Tipo de Consulta</label>
+                                        </div>
+
+                                        <div class="d-flex flex-wrap mb-3 options-data">
+                                            <div class="alert alert-warning w-100">
+                                                <span><b>Selecione uma data</b> para visualizar os horários
+                                                    disponiveis</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" cols="60" placeholder=" " maxlength="200"
+                                                style="height: 100px" name="motivo_consulta"></textarea>
+                                            <label for="resumo">Motivo da Consulta</label>
                                         </div>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <textarea class="form-control" cols="60" placeholder=" " maxlength="200"
-                                            style="height: 100px"></textarea>
-                                        <label for="resumo">Motivo da Consulta</label>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-success">Salvar</button>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Fechar</button>
-                                    <button type="button" class="btn btn-primary">Cadastrar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <?php
+
+                    if (isset($_SESSION['mensagem'])) {
+                        session_destroy();
+                        ?>
+
+                        <div class="modal fade" id="mensagem" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title fs-5" id="exampleModalLabel">MENSAGEM</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            <?php echo $_SESSION['mensagem']; ?>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Ok
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <form action="" method="post">
-                        <div class="row g-2 mb-3">
+                        <script>
+                            $(document).ready(function () {
+                                $("#mensagem").modal('show');
+                            });
+                        </script>
+                    <?php } ?>
 
-                            <div class="form-floating mb-2 col-md-2">
-                                <input type="date" class="form-control" name="bdata" placeholder=" " value="">
-                                <label for="floatingInput">Data</label>
-                            </div>
-                            <div class="form-floating mb-2 col-md-6">
-                                <input type="text" class="form-control" name="busca" placeholder=" " value="">
-                                <label for="floatingInput">Nome do Paciente</label>
-                            </div>
-                            <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
+                    <div class="negrito">FILTROS</div>
+                    <div class="row g-2 mb-3">
 
+                        <div class="form-floating mb-2 col-md-2">
+                            <input type="date" class="form-control" name="bdata" placeholder=" " value="">
+                            <label for="floatingInput">Data</label>
                         </div>
+                        <div class="form-floating mb-2 col-md-6">
+                            <input type="text" class="form-control" name="busca" placeholder=" " value="">
+                            <label for="floatingInput">Nome do Paciente</label>
+                        </div>
+                        <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
+
+                    </div>
                     </form>
 
                     <table class="table table-striped border">
@@ -175,7 +217,7 @@ include_once("includes/connection.php");
                                         <?php echo $o['NomePaciente']; ?>
                                     </td>
                                     <td class="bg-white">
-                                        <?php echo $o['DataHora']; ?>
+                                        <?php echo date("d/m/Y H:i", strtotime($o['DataHora'])); ?>
                                     </td>
                                     <td class="bg-white">
                                         <?php echo $o['MotivoConsulta']; ?>
