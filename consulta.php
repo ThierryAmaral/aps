@@ -195,35 +195,100 @@ include_once("includes/connection.php");
                     <table class="table table-striped border">
                         <thead>
                             <tr class="bg-info">
-                                <th class="texto text-white" scope="col">PACIENTE</th>
-                                <th class="texto text-white" scope="col">TELEFONE</th>
-                                <th class="texto text-white" scope="col">DATA E HORA</th>
-                                <th class="texto text-white" scope="col">FORMA DE PAGAMENTO</th>
-                                <th class="texto text-white" scope="col">STATUS</th>
+                                <th class="texto text-white" scope="col">ID</th>
+                                <th class="texto text-white" scope="col">Paciente</th>
+                                <th class="texto text-white" scope="col">Data e Hora</th>
+                                <th class="texto text-white" scope="col">Motivo</th>
+                                <th class="texto text-white" scope="col">Forma de Pagamento</th>
+                                <th class="texto text-white" scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="bg-white" scope="row">1</th>
-                                <td class="bg-white">Mark</td>
-                                <td class="bg-white">Otto</td>
-                                <td class="bg-white">@mdo</td>
-                                <td class="bg-white">@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-white" scope="row">3</th>
-                                <td class="bg-white">Larry</td>
-                                <td class="bg-white">the Bird</td>
-                                <td class="bg-white">@twitter</td>
-                                <td class="bg-white">@mdo</td>
-                            </tr>
+                            <?php
+
+                            $result = $conn->prepare("select c.*, p.NomePaciente from consultas c, fichapaciente p where c.FichaPaciente_id = p.id and c.Status != 'atendido'");
+                            $result->execute();
+                            $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($rows as $o) { ?>
+                                <tr>
+                                    <td class="bg-white">
+                                        <?php echo $id = $o['id']; ?>
+                                    </td>
+                                    <td class="bg-white">
+                                        <?php echo $id = $o['NomePaciente']; ?>
+                                    </td>
+                                    <td class="bg-white">
+                                        <?php echo $o['DataHora']; ?>
+                                    </td>
+                                    <td class="bg-white">
+                                        <?php echo $o['MotivoConsulta']; ?>
+                                    </td>
+                                    <td class="bg-white">
+                                        <?php echo $o['FormaPagamento']; ?>
+                                    </td>
+                                    <td class="bg-white">
+                                        <div class="dropdown">
+                                            <?php if ($o['Status'] == 'confirmado') { ?>
+                                                <button class="p-2 btn btn-success mb-2" type="submit" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                                    </svg>
+                                                </button>
+                                            <?php }
+                                            if ($o['Status'] == 'aguardando') { ?>
+                                                <button class="p-2 btn btn-warning mb-2" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z" />
+                                                        <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z" />
+                                                        <path
+                                                            d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                                                    </svg>
+                                                </button>
+                                            <?php }
+                                            if ($o['Status'] == 'cancelado') { ?>
+                                                <button class="p-2 btn btn-danger mb-2" type="button" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                                                    </svg>
+                                                </button>
+                                            <?php } ?>
+                                            <ul class="dropdown-menu">
+                                                <?php if ($o['Status'] != 'atendido') { ?>
+                                                    <li><a class="dropdown-item"
+                                                            href="status.php?id=<?php echo $o['id']; ?>&status=atendido">Atendido</a>
+                                                    </li>
+                                                <?php }
+                                                if ($o['Status'] != 'confirmado') { ?>
+                                                    <li><a class="dropdown-item"
+                                                            href="status.php?id=<?php echo $o['id']; ?>&status=confirmado">Confirmado</a>
+                                                    </li>
+                                                <?php }
+                                                if ($o['Status'] != 'aguardando') { ?>
+                                                    <li><a class="dropdown-item"
+                                                            href="status.php?id=<?php echo $o['id']; ?>&status=aguardando">Aguardando</a>
+                                                    </li>
+                                                <?php }
+                                                if ($o['Status'] != 'cancelado') { ?>
+                                                    <li><a class="dropdown-item"
+                                                            href="status.php?id=<?php echo $o['id']; ?>&status=cancelado">Cancelado</a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
