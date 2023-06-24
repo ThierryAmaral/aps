@@ -87,7 +87,7 @@ session_start();
                                                 $result->execute();
                                                 $rows = $result->fetchAll(PDO::FETCH_ASSOC);
                                                 foreach ($rows as $o) { ?>
-                                                    <option selected value="<?php echo $o['id']; ?>">
+                                                    <option value="<?php echo $o['id']; ?>">
                                                         <?php echo $o['NomePaciente']; ?>
                                                     </option>
                                                 <?php } ?>
