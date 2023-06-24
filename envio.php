@@ -1,42 +1,58 @@
 <?php
 include_once("includes/connection.php");
 
-$nome = $_POST['Nome'];
-$data = $_POST['Data'];
-$cpf = $_POST['CPF'];
-$email = $_POST['Email'];
-$contato = $_POST['Contato'];
-$cep = $_POST['CEP'];
-$bairro = $_POST['Bairro'];
-$rua = $_POST['Rua'];
-$numero = $_POST['Numero'];
-$complemento = $_POST['Complemento'];
-$municipio = $_POST['Municipio'];
-$uf = $_POST['UF'];
+session_start();
 
-$erro = false;
+$nome = isset($_POST['Nome']) ? $_POST['Nome'] : "";
+$data = isset($_POST['Data']) ? $_POST['Data'] : "";
+$cpf = isset($_POST['CPF']) ? $_POST['CPF'] : "";
+$email = isset($_POST['Email']) ? $_POST['Email'] : "";
+$contato = isset($_POST['Contato']) ? $_POST['Contato'] : "";
+$cep = isset($_POST['CEP']) ? $_POST['CEP'] : "";
+$bairro = isset($_POST['Bairro']) ? $_POST['Bairro'] : "";
+$rua = isset($_POST['Rua']) ? $_POST['Rua'] : "";
+$numero = isset($_POST['Numero']) ? $_POST['Numero'] : "";
+$complemento = isset($_POST['Complemento']) ? $_POST['Complemento'] : "";
+$municipio = isset($_POST['Municipio']) ? $_POST['Municipio'] : "";
+$uf = isset($_POST['UF']) ? $_POST['UF'] : "";
 
-$resultado_usuario = mysqli_query($conexao,"select CPF from fichapaciente where CPF = '$cpf'");
-if(($resultado_usuario) AND ($resultado_usuario -> num_rows != 0)){
-    $erro = true;
+$resultado_usuario = $conn->prepare("SELECT CPF FROM fichapaciente WHERE CPF = :CPF");
+$resultado_usuario->bindParam(":CPF", $cpf);
+
+if ($resultado_usuario->execute()) {
+    $row = $resultado_usuario->fetch(PDO::FETCH_ASSOC);
+    if ($row['CPF'] == $cpf) {
+        $_SESSION['mensagem'] = "CPF já cadastrado.";
+        header('Location: pacientes.php');
+        exit();
+    }
+
 }
 
-$resultado_usuario = mysqli_query($conexao,"select Email from fichapaciente where Email = '$email'");
-if(($resultado_usuario) AND ($resultado_usuario -> num_rows != 0)){
-    $erro = true;
-}
-
-$resultado_usuario = mysqli_query($conexao,"select Contato from fichapaciente where Contato = '$contato'");
-if(($resultado_usuario) AND ($resultado_usuario -> num_rows != 0)){
-    $erro = true;
-}
-
-if(!$erro){
-    mysqli_query($conexao, "insert into fichapaciente
+$insert = $conn->prepare("INSERT INTO fichapaciente
     (NomePaciente,DataNascimento,CPF,Email,Contato,CEP,Bairro,Endereco,Numero,Complemento,Municipio,UF) 
-    values ('$nome','$data','$cpf','$email','$contato','$cep','$bairro','$rua','$numero','$complemento','$municipio','$uf')");
-    
-    header("Location: pacientes.php");
+    VALUES (:nome,:data,:cpf,:email,:contato,:cep,:bairro,:rua,:numero,:complemento,:municipio,:uf)");
+$insert->bindParam(":nome", $nome);
+$insert->bindParam(":data", $data);
+$insert->bindParam(":cpf", $cpf);
+$insert->bindParam(":email", $email);
+$insert->bindParam(":contato", $contato);
+$insert->bindParam(":cep", $cep);
+$insert->bindParam(":bairro", $bairro);
+$insert->bindParam(":rua", $rua);
+$insert->bindParam(":numero", $numero);
+$insert->bindParam(":complemento", $complemento);
+$insert->bindParam(":municipio", $municipio);
+$insert->bindParam(":uf", $uf);
+
+if ($insert->execute()) {
+    $_SESSION['mensagem'] = "Paciente salvo com sucesso.";
+    header('Location: pacientes.php');
+    exit();
+} else {
+    $_SESSION['mensagem'] = "Falha ao salvar paciente.";
+    header('Location: pacientes.php');
+    exit();
 }
-header("Location: pacientes.php");
+
 ?>

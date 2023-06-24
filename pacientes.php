@@ -1,5 +1,6 @@
 <?php
 include_once("includes/connection.php");
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +22,9 @@ include_once("includes/connection.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <link rel="stylesheet" type="text/css" href="pacientes.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -165,9 +169,47 @@ include_once("includes/connection.php");
                         </div>
                     </div>
 
+                    <?php
+
+                    if (isset($_SESSION['mensagem'])) {
+                        session_destroy();
+                        ?>
+
+                        <div class="modal fade" id="mensagem" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title fs-5" id="exampleModalLabel">MENSAGEM</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            <?php echo $_SESSION['mensagem']; ?>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Ok
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $("#mensagem").modal('show');
+                            });
+                        </script>
+                    <?php } ?>
+
+
                     <form action="" method="post">
                         <div class="row g-2 mb-3">
-                            
+
                             <div class="form-floating mb-2 col-md-6">
                                 <input type="text" class="form-control" name="busca" placeholder=" " value="">
                                 <label for="floatingInput">Nome do Paciente</label>
@@ -189,13 +231,13 @@ include_once("includes/connection.php");
                         </thead>
                         <tbody>
                             <?php
-                            if(isset($_POST['busca'])){
+                            if (isset($_POST['busca'])) {
                                 $busca = $_POST['busca'];
-                            }else{
+                            } else {
                                 $busca = '';
                             }
-                                
-                            
+
+
                             $result = $conn->prepare("SELECT * FROM fichapaciente WHERE NomePaciente like '%$busca%'");
                             $result->execute();
                             $rows = $result->fetchAll(PDO::FETCH_ASSOC);
