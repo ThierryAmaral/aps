@@ -11,5 +11,4 @@ $result->execute();
 if ($result) {
     header("Location: consulta.php");
 }
-
 ?>

@@ -368,5 +368,4 @@ include_once("includes/connection.php");
     </div>
     <script src="pacientes.js"></script>
 </body>
-
 </html>

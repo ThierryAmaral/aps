@@ -47,3 +47,8 @@ body {
         width: calc(33.33333333% - (10px - (10px / 3)));
     }
 }
+
+
+.teste {
+    color: red;
+}
