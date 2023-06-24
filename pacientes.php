@@ -1,5 +1,6 @@
 <?php
 include_once("includes/connection.php");
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +22,9 @@ include_once("includes/connection.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <link rel="stylesheet" type="text/css" href="pacientes.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -67,7 +71,7 @@ include_once("includes/connection.php");
                 <div class="secao-secondary p-3">
 
                     <!-- Button Cadastro -->
-                    <button type="button" class="p-2 btn btn-info mb-3 text-white" data-bs-toggle="modal"
+                    <button type="button" class="p-2 btn btn-success mb-3 text-white" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
                         NOVO PACIENTE
                     </button>
@@ -155,7 +159,7 @@ include_once("includes/connection.php");
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Fechar</button>
-                                            <input type="button" class="btn btn-primary" value="Enviar"
+                                            <input type="button" class="btn btn-primary" value="Cadastrar"
                                                 onclick="FinalizarPedido(this.form)">
                                         </div>
                                     </form>
@@ -165,17 +169,59 @@ include_once("includes/connection.php");
                         </div>
                     </div>
 
-                    <div class="font-weight-bold">
-                        FILTRAR PACIENTE
-                    </div>
-                    <div class="row g-2 mb-3">
-                        <div class="form-group mb-2 col-md-3">
-                            <input type="text" class="form-control" placeholder="INSIRA O NOME">
+                    <?php
+
+                    if (isset($_SESSION['mensagem'])) {
+                        session_destroy();
+                        ?>
+
+                        <div class="modal fade" id="mensagem" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title fs-5" id="exampleModalLabel">MENSAGEM</h3>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            <?php echo $_SESSION['mensagem']; ?>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Ok
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $("#mensagem").modal('show');
+                            });
+                        </script>
+                    <?php } ?>
+
+
+                    <form action="" method="post">
+                        <div class="row g-2 mb-3">
+
+                            <div class="form-floating mb-2 col-md-6">
+                                <input type="text" class="form-control" name="busca" placeholder=" " value="">
+                                <label for="floatingInput">Nome do Paciente</label>
+                            </div>
+                            <button type="submit" class="btn btn-info mb-2 col-md-1 text-white">FILTRAR</button>
+
+                        </div>
+                    </form>
+
                     <table class="table table-striped">
                         <thead>
-                            <tr class="bg-info">
+                            <tr class="bg-primary">
                                 <th class="texto text-white" scope="col">ID</th>
                                 <th class="texto text-white" scope="col">Paciente</th>
                                 <th class="texto text-white" scope="col">CPF</th>
@@ -185,8 +231,14 @@ include_once("includes/connection.php");
                         </thead>
                         <tbody>
                             <?php
+                            if (isset($_POST['busca'])) {
+                                $busca = $_POST['busca'];
+                            } else {
+                                $busca = '';
+                            }
 
-                            $result = $conn->prepare("SELECT * FROM fichapaciente");
+
+                            $result = $conn->prepare("SELECT * FROM fichapaciente WHERE NomePaciente like '%$busca%'");
                             $result->execute();
                             $rows = $result->fetchAll(PDO::FETCH_ASSOC);
                             foreach ($rows as $o) { ?>
@@ -201,7 +253,7 @@ include_once("includes/connection.php");
                                         <?php echo $o['CPF']; ?>
                                     </td>
                                     <td class="bg-white">
-                                        <?php echo $o['DataNascimento']; ?>
+                                        <?php echo date("d/m/Y", strtotime($o['DataNascimento'])); ?>
                                     </td>
                                     <td class="bg-white">
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -239,7 +291,7 @@ include_once("includes/connection.php");
                                             <div class="modal-body">
                                                 <form action="excluir.php" method="post">
                                                     <input type="hidden" name="id" id="vId" value="<?php echo $o['id']; ?>">
-                                                    Tem certeza que deseja excluír a ficha do paciente?
+                                                    Tem certeza que deseja excluir a ficha do paciente?
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Não</button>

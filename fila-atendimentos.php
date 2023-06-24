@@ -267,7 +267,7 @@ if (isset($_POST['id'])) {
 
                     <table class="table table-striped">
                         <thead>
-                            <tr class="bg-info">
+                            <tr class="bg-primary">
                                 <th class="texto text-white" scope="col">ID</th>
                                 <th class="texto text-white" scope="col">Paciente</th>
                                 <th class="texto text-white" scope="col">CPF</th>
@@ -294,7 +294,7 @@ if (isset($_POST['id'])) {
                                         <?php echo $o['cpf']; ?>
                                     </td>
                                     <td class="bg-white">
-                                        <?php echo $o['DataNascimento']; ?>
+                                        <?php echo date("d/m/Y", strtotime($o['DataNascimento'])); ?>
                                     </td>
                                     <td class="bg-white">
                                         <a class="btn btn-warning" href="?id=<?php echo $o['id']; ?>">
